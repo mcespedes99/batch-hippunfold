@@ -19,7 +19,7 @@ rule all:
 
 rule hippunfold:
     input:
-        bids='bids',
+        bids=config['bids_dir'],
     params:
         hippunfold_opts=config['opts']['hippunfold']
     output:
