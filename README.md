@@ -6,10 +6,10 @@ Note: this does not retain the work folder at all.
 
 ## Instructions:
 
-1. Update config file with options
+1. Clone this repo (e.g. in a /scratch or /project folder on graham)
 
-2. Run `snakemake -np` for dry-run
+2. Edit and update the `config.yml` file with hippunfold CLI options
 
-3. Run `snakemake --profile cc-slurm` for submitting jobs (or use your chosen profile)
+3. Run `snakemake -np` for dry-run (should be one job per subject)
 
-
+4. Run `snakemake --profile cc-slurm` for submitting jobs (or use your chosen profile)
