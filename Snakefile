@@ -20,18 +20,18 @@ rule all:
 rule hippunfold:
     input:
         bids=config['bids_dir'],
+    	container=config['singularity']['hippunfold']
     params:
-        hippunfold_opts=config['opts']['hippunfold']
+        hippunfold_opts=lambda wildcards: config['opts']['hippunfold']
     output:
         directory('hippunfold/sub-{subject}'),
-    container: config['singularity']['hippunfold']
     shadow: 'minimal'
     threads: 8
     resources: 
         mem_mb=32000,
         time=90
     shell: 
-        'hippunfold {input.bids} {resources.tmpdir} participant --participant_label {wildcards.subject} '
+        'singularity run -e {input.container} {input.bids} {resources.tmpdir} participant --participant_label {wildcards.subject} '
         '--cores {threads}  {params.hippunfold_opts} && '
         'cp -Rv {resources.tmpdir}/hippunfold/sub-{wildcards.subject} {output} ' 
 
