@@ -1,23 +1,15 @@
-bids_subject: 'bids/sub-{subject,[a-zA-Z0-9]+}'
+bids_subject_match: 'sub-{subject,[a-zA-Z0-9]+}'
 
+bids_dir: 'bids'
+
+
+#test_subjects:   #uncomment this to run on subset of subjects
+#  - '001'
 
 singularity:
-  fmriprep: 'docker://nipreps/fmriprep:20.2.6'
-  hippunfold: '/project/6050199/akhanf/singularity/bids-apps/khanlab_hippunfold_v1.0.0.sif'
-  freesurfer: '/project/6050199/akhanf/singularity/bids-apps/freesurfer_freesurfer_7.2.0.sif'
+  hippunfold: '/project/6050199/akhanf/singularity/bids-apps/khanlab_hippunfold_v1.2.0.sif'
+
+opts:
+  hippunfold: '--modality T1w --skip-coreg --skip-preproc --output-density 0p5mm 1mm 2mm --generate-myelin-map'
 
 
-fs_license_file: '/project/ctb-akhanf/akhanf/opt/freesurfer/.license'
-
-
-pybids_inputs_freesurfer:
-  T1w:
-    filters:
-      suffix: 'T1w'
-      extension: '.nii.gz'
-      datatype: 'anat'
-    wildcards:
-      - subject
-      - session
-      - acquisition
-      - run
