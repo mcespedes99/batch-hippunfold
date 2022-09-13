@@ -1,15 +1,21 @@
-bids_subject_match: 'sub-{subject,[a-zA-Z0-9]+}'
-
-bids_dir: 'bids'
-
-
-#test_subjects:   #uncomment this to run on subset of subjects
-#  - '001'
-
-singularity:
-  hippunfold: '/project/6050199/akhanf/singularity/bids-apps/khanlab_hippunfold_v1.2.0.sif'
+#-- make sure you update bids_dir and hippunfold opts before running! --
+bids_dir: 'bids'  
 
 opts:
   hippunfold: '--modality T1w --skip-coreg --skip-preproc --output-density 0p5mm 1mm 2mm --generate-myelin-map'
+
+
+#-- uncomment this section to run on a subset of subjects --
+#test_subjects:   
+#  - '001'
+
+
+#-- this usually won't need updating --
+bids_subject_match: 'sub-{subject,[a-zA-Z0-9]+}'  #this is just used to identify subject IDs, should not need to modify it
+
+
+#-- only update below if on a different system than graham --
+singularity:
+  hippunfold: '/project/6050199/akhanf/singularity/bids-apps/khanlab_hippunfold_v1.2.0.sif'
 
 
