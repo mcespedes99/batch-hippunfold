@@ -17,23 +17,36 @@ rule all:
     input:
         expand('hippunfold/sub-{subject}',subject=subjects),
 
+def get_output_files_folders():
+    """ This function is used to select what files to retain, since the 
+    app is run on /tmp, and only files listed here will be copied over"""
+    output_files_folders=[]
+    output_files_folders.append('hippunfold/sub-{subject}')
+    if '--keep_work' in config['opts']['hippunfold'] or '--keep-work' in  config['opts']['hippunfold']:
+        output_files_folders.append('work/sub-{subject}')
+    else:
+        output_files_folders.append('work/sub-{subject}.tar.gz')
+    return output_files_folders
+
+
 rule hippunfold:
     input:
         bids=config['bids_dir'],
     	container=config['singularity']['hippunfold']
     params:
-        hippunfold_opts=lambda wildcards: config['opts']['hippunfold']
+        hippunfold_opts=config['opts']['hippunfold'],
+
     output:
-        directory('hippunfold/sub-{subject}'),
+        get_output_files_folders()
     shadow: 'minimal'
-    threads: 8
+    threads: config['resources']['cores']
     resources: 
-        mem_mb=32000,
-        time=90
+        mem_mb=config['resources']['mem_mb'],
+        time=config['resources']['time']
     shell: 
         'singularity run -e {input.container} {input.bids} {resources.tmpdir} participant --participant_label {wildcards.subject} '
         '--cores {threads}  {params.hippunfold_opts} && '
-        'cp -Rv {resources.tmpdir}/hippunfold/sub-{wildcards.subject} {output} ' 
+        'pushd {resources.tmpdir} && cp --parent -Rv {output} `dirs`' #pushd puts the current folder on stack, grabbed with `dirs`
 
 
 
