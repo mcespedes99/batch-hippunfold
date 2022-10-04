@@ -20,14 +20,12 @@ rule all:
 def get_output_files_folders():
     """ This function is used to select what files to retain, since the 
     app is run on /tmp, and only files listed here will be copied over"""
-    output_files_folders=[]
-    output_files_folders.append('hippunfold/sub-{subject}')
-    if '--keep_work' in config['opts']['hippunfold'] or '--keep-work' in  config['opts']['hippunfold']:
-        output_files_folders.append('work/sub-{subject}')
-    else:
-        output_files_folders.append('work/sub-{subject}.tar.gz')
-    return output_files_folders
 
+    output_files_folders=[]
+    output_files_folders.append(directory('hippunfold/sub-{subject}'))
+    if '--keep_work' in config['opts']['hippunfold'] or '--keep-work' in  config['opts']['hippunfold']:
+        output_files_folders.append(directory('work/sub-{subject}'))
+    return output_files_folders
 
 rule hippunfold:
     input:
@@ -35,7 +33,7 @@ rule hippunfold:
     	container=config['singularity']['hippunfold']
     params:
         hippunfold_opts=config['opts']['hippunfold'],
-
+        retain_outputs_from_tmp=lambda wildcards, resources, output: ' && '.join([f'cp -Rv {resources.tmpdir}/{out} {out}' for out in output])
     output:
         get_output_files_folders()
     shadow: 'minimal'
@@ -46,10 +44,5 @@ rule hippunfold:
     shell: 
         'singularity run -e {input.container} {input.bids} {resources.tmpdir} participant --participant_label {wildcards.subject} '
         '--cores {threads}  {params.hippunfold_opts} && '
-        'pushd {resources.tmpdir} && cp --parent -Rv {output} `dirs`' #pushd puts the current folder on stack, grabbed with `dirs`
-
-
-
-
-
+        '{params.retain_outputs_from_tmp} '
 

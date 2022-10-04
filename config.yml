@@ -2,7 +2,7 @@
 bids_dir: 'bids'  
 
 opts:
-  hippunfold: '--modality T1w --output-density 0p5mm 1mm 2mm'
+  hippunfold: '--modality T1w --output-density 0p5mm 1mm 2mm --keep-work'
 
   
 resources:
