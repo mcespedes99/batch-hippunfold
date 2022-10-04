@@ -2,8 +2,13 @@
 bids_dir: 'bids'  
 
 opts:
-  hippunfold: '--modality T1w --skip-coreg --skip-preproc --output-density 0p5mm 1mm 2mm --generate-myelin-map'
+  hippunfold: '--modality T1w --output-density 0p5mm 1mm 2mm --keep-work'
 
+  
+resources:
+  cores: 32
+  mem_mb: 128000
+  time: 180 
 
 #-- uncomment this section to run on a subset of subjects --
 #test_subjects:   
