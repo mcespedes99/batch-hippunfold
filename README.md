@@ -2,7 +2,6 @@
 
 Simple wrapper snakemake workflow to submit jobs for running hippunfold on the cluster.
 Writes data to /tmp during the job, and copies the hippunfold folder back for each subject.
-Note: this does not retain the work folder at all.
 
 ## Instructions:
 
