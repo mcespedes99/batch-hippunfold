@@ -32,7 +32,7 @@ rule hippunfold:
         bids=config['bids_dir'],
     	container=config['singularity']['hippunfold']
     params:
-        hippunfold_opts=config['opts']['hippunfold'],
+        hippunfold_opts=lambda wildcards: config['opts']['hippunfold'],
         retain_outputs_from_tmp=lambda wildcards, resources, output: ' && '.join([f'cp -Rv {resources.tmpdir}/{out} {out}' for out in output])
     output:
         get_output_files_folders()
