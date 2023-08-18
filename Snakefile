@@ -43,6 +43,6 @@ rule hippunfold:
         time=config['resources']['time']
     shell: 
         'singularity run -e {input.container} {input.bids} {resources.tmpdir} participant --participant_label {wildcards.subject} '
-        '--cores {threads}  {params.hippunfold_opts} && '
+        '--cores {threads} {params.hippunfold_opts} && '
         '{params.retain_outputs_from_tmp} '
 

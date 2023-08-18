@@ -1,18 +1,19 @@
 #-- make sure you update bids_dir and hippunfold opts before running! --
-bids_dir: 'bids'  
+bids_dir: '/project/ctb-akhanf/cfmm-bids/Khan/SNSX_7T_2021/correct7T.dev/gradcorrect_v0.0.3'  
 
 opts:
-  hippunfold: '--modality T1w --output-density 0p5mm 1mm 2mm --keep-work'
+  hippunfold: '--modality T1w --force-nnunet-model synthseg_v0.2 --atlas bigbrain'
 
   
 resources:
-  cores: 32
-  mem_mb: 128000
+  cores: 8
+  mem_mb: 32000
   time: 180 
 
 #-- uncomment this section to run on a subset of subjects --
-#test_subjects:   
-#  - '001'
+test_subjects:   
+ - 'P060'
+ - 'P061'
 
 
 #-- this usually won't need updating --
@@ -21,6 +22,6 @@ bids_subject_match: 'sub-{subject,[a-zA-Z0-9]+}'  #this is just used to identify
 
 #-- only update below if on a different system than graham --
 singularity:
-  hippunfold: '/project/6050199/akhanf/singularity/bids-apps/khanlab_hippunfold_v1.2.0.sif'
+  hippunfold: '/home/mcesped/projects/ctb-akhanf/akhanf/singularity/bids-apps/khanlab_hippunfold_v1.3.2.sif'
 
 
