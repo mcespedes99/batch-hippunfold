@@ -1,19 +1,53 @@
 #-- make sure you update bids_dir and hippunfold opts before running! --
-bids_dir: '/project/ctb-akhanf/cfmm-bids/Khan/SNSX_7T_2021/correct7T.dev/gradcorrect_v0.0.3'  
+bids_dir: '/project/ctb-akhanf/cfmm-bids/Khan/SNSX/master/7T/bids'
+#'/project/ctb-akhanf/cfmm-bids/Khan/SNSX_7T_2021/correct7T.dev/gradcorrect_v0.0.3'
+#  
 
 opts:
-  hippunfold: '--modality T1w --force-nnunet-model synthseg_v0.2 --atlas bigbrain'
+  hippunfold: '--modality T1w --force-nnunet-model synthseg_v0.2 --atlas bigbrain --path_T1w /project/6050199/akhanf/cfmm-bids/data/Khan/SNSX/master/7T/bids/sub-{subject}/anat/sub-{subject}_acq-{acq}_run-{run}_T1w.nii.gz'
 
+# /project/6050199/akhanf/cfmm-bids/data/Khan/SNSX/master/3T/bids/sub-{subject}/anat/sub-{subject}_acq-{acq}_run-{run}_T1w.nii.gz
+# /project/6050199/akhanf/cfmm-bids/data/Khan/SNSX/master/7T/bids/sub-{subject}/anat/sub-{subject}_acq-{acq}_run-{run}_T1w.nii.gz
   
 resources:
   cores: 8
   mem_mb: 32000
-  time: 180 
+  time: 240 
 
 #-- uncomment this section to run on a subset of subjects --
-test_subjects:   
- - 'P060'
- - 'P061'
+test_subjects:
+  - 'P032' # 7T
+#  - 'P089' # 3T
+#  - 'P105' # 3T
+#  - 'P107' # 3T
+#  - 'P109' # 3T
+#  - 'P051' # 3T
+#  - 'P052' # 3T
+#  - 'P054' # 3T
+#  - 'P055' # 3T
+#  - 'P056' # 3T
+#7T
+#  - 'P046' #P001
+#  - 'P022' #P002
+#  - 'P026' #P003
+#  - 'P029' #P016
+#  - 'P058' #P065
+#  - 'P059' #P067
+#  - 'P060' #P068
+#  - 'P070' #P078
+#  - 'P080' #P081
+#  - 'P081' #P082
+#  - 'P087' #P083
+#  - 'P089' # Exists on /project/ctb-akhanf/cfmm-bids/Khan/SNSX_7T_2021/correct7T.dev/gradcorrect_v0.0.3'
+#  - 'P090' #P087
+#  - 'P095' #P091
+#  - 'P097' #P093
+#  - 'P100' #P095
+#  - 'P048'
+#  - 'P049' #P009
+#  - 'P061' 
+#  - 'P071' #P079
+#  - 'P092' #P088
 
 
 #-- this usually won't need updating --
@@ -22,6 +56,6 @@ bids_subject_match: 'sub-{subject,[a-zA-Z0-9]+}'  #this is just used to identify
 
 #-- only update below if on a different system than graham --
 singularity:
-  hippunfold: '/home/mcesped/projects/ctb-akhanf/akhanf/singularity/bids-apps/khanlab_hippunfold_v1.3.2.sif'
+  hippunfold: '/home/mcesped/projects/ctb-akhanf/akhanf/singularity/bids-apps/khanlab_hippunfold_v1.3.3.sif'
 
 
